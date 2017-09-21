@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h3>用户修改</h3>
+    <p>原用户名: <%= data[0].username%></p>
+    <p>是否为管理员: <%= admin%></p>
+    <p>用户名:<input type="text" value="" class="name"></p>
+    <p>管理员:<input type="radio" value="1" class="admin" name="admin">是<input type="radio" value="0" name="admin" class="admin">否</p>
+    <p><input type="submit" value="修改提交" class="submit" data-id="<%= data[0].id%>"></p>
+    <script src="/jquery.min.js"></script>
+    <script>
+        $('.submit').click(function(){
+           $.ajax({
+               url: '/admin/user/updateuser',
+               type: 'post',
+               dataType: 'json',
+               data: {
+                   id : $('.submit').data('id'),
+                   name : $('.name').val() || '<%= data[0].username%>',
+                   admin : $('input[name=admin]:checked').val() ||  '<%= data[0].admin%>'
+               },
+               success (data) {
+                   if(data.code == 200){
+                       location.reload();
+                   }else{
+                       console.log(data);
+                   }
+               },
+               error (data){
+                   console.log(data);
+               }
+           })
+        });
+    </script>
+</body>
+</html>

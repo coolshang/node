@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <% include header.ejs%>
+    <!--接收的方式 %= 传递过来的json数据名 % -->
+    <!-- = 这种方式接收的是转义后的-->
+
+    <!-- - 没有转义的-->
+    <img src="img/logo.png" alt="">
+    <!--主要是用来写js代码-->
+    <% for(var i in data){%>
+        <p><%- data[i]%></p>
+    <%}%>
+    <% include footer.ejs%>
+</body>
+</html>

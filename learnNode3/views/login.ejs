@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1>登录</h1>
+<%if(locals.login){%>
+已经登录
+<%if(locals.admin == 1){%>
+当前用户为管理员
+<a href="/admin">后台管理</a>
+<%}%>
+<a href="/logout">退出</a>
+<%}else{%>
+<input class="name" type="text">
+<input class="pass" type="text">
+<input class="submit" type="submit" value="提交">
+<%}%>
+<script src="/jquery.min.js"></script>
+<script>
+    $('.submit').click(function(){
+        $.ajax({
+            url:'/login',
+            type:'post',
+            dataType: 'json',
+            data: {
+                name: $(".name").val(),
+                pass: $(".pass").val()
+            },
+            success: function (data) {
+                console.log(data);
+                if(data.msg == '成功'){
+                    location.reload();
+                }
+            },
+            error: function(data) {
+                //返回的值不是规定的 dataType 类型 error
+                console.log(data);
+            }
+        });
+    });
+</script>
+</body>
+</html>

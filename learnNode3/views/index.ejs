@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<!--<form action="/reg" method="get">
+    <input type="text" name="name">
+    <input type="text" name="pass">
+    <input type="submit" value="提交">
+</form>-->
+<%if(!locals.login){%>
+<input type="text" name="name">
+<input type="text" name="pass">
+<input id="submit" type="submit" value="提交">
+<a href="/login">登录</a><a href="/reg">注册</a>
+<%}else{%>
+<%= locals.login%>已经登录
+<%if(locals.admin == 1){%>
+    当前用户为管理员
+<a href="/admin">后台管理</a>
+<%}%>
+<a href="/logout">退出</a>
+<%}%>
+<script src="/jquery.min.js"></script>
+<script>
+    $('input[type=submit]').click(function () {
+        $.ajax({
+            url: '/reg',
+            type: 'get',
+            data:{
+                name: $("input[name='name']").val(),
+                pass: $("input[name='pass']").val(),
+            },
+            success: function(ret){
+               alert(ret.msg);
+               location.reload();
+            }
+        });
+    })
+</script>
+    <div>
+        <h3>用户列表</h3>
+    <%if(data){%>
+        <%for(var i in data){%>
+            <p>用户名:<%= data[i]["username"]%></p>
+            <p>密 &nbsp;码:<%= data[i]["password"]%></p>
+        <%}%>
+    <%}%>
+    </div>
+<div>
+    <h3>文章列表</h3>
+    <ul>
+    <%if(act){%>
+        <%for(var i in act){%>
+        <li><a href="/article/<%= act[i].id%>.html"><%= parseInt(i)+1%>、<%= act[i].title%></a></li>
+        <%}%>
+    <%}%>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "learnNode2",
+  "version": "0.0.1",
+  "dependencies": {
+    "express":"latest",
+    "ejs": "latest",
+    "mysql": "latest"
+  }
+}

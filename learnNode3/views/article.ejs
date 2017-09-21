@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    标题: <%= data[0].title%> <br>
+    标签: <%= data[0].tag%><br>
+    <%if(data[0].img){%>
+    封面: <img src="<%= data[0].img%>" alt=""><br>
+    <%}%>
+    作者: <%= data[0].author%><br>
+    内容: <%- data[0].content%><br>
+    发布时间: <%= data[0].time%><br>
+    阅读数量: <%= data[0].readnum%> <br>
+    <form action="/article/<%= data[0].id %>.html" method="post">
+        评论 <input type="text" name="content"><input type="submit"  value="提交">
+    </form>
+    <%if(pinglun){%>
+        <%for(var i in pinglun){%>
+            <p><%= pinglun[i].content%></p>
+            <p><%= pinglun[i].time%></p>
+        <%}%>
+    <%}%>
+</body>
+</html>
